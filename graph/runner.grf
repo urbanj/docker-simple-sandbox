@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Jaro" created="Tue Jun 18 17:28:53 CEST 2019" guiVersion="5.3.0.504" id="1560871778449" licenseCode="CLP1DCLOVE88427105BY" name="runner" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata0">
+<Record fieldDelimiter="|" name="dummy_data" recordDelimiter="\r\n" type="delimited">
+<Field name="number" type="integer"/>
+<Field name="text" type="string"/>
+</Record>
+</Metadata>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node guiName="DataGenerator" guiX="283" guiY="281" id="DATA_GENERATOR" recordsNumber="10000" type="DATA_GENERATOR">
+<attr name="generate"><![CDATA[//#CTL2
+
+// Generates output record.
+function integer generate() {
+	$out.0.number = randomInteger(0,100);
+	$out.0.text = randomString(3,5);
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the generate. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if generate() throws an exception.
+// function integer generateOnError(string errorMessage, string stackTrace) {
+// }
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node fileURL="${DATAOUT_DIR}/runner-output" guiName="FlatFileWriter" guiX="581" guiY="281" id="FLAT_FILE_WRITER" type="FLAT_FILE_WRITER"/>
+<Edge fromNode="DATA_GENERATOR:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="FLAT_FILE_WRITER:0"/>
+</Phase>
+</Graph>
